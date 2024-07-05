@@ -1,6 +1,6 @@
 # 0g-KV-start: Setting Up 0g Storage KV on Linux
 
-Welcome to the **ZeroG-KVLaunchpad** guide! This manual is designed for individuals looking to deploy the **0g storage kv** on their Linux server from scratch.
+Welcome to the **0g-KV-start** guide! This manual is designed for individuals looking to deploy the **0g storage kv** on their Linux server from scratch.
 
 ## What is 0g Storage KV?
 0g Storage KV is a distributed key-value storage system, optimized for the zero-gravity conditions of cyberspace. It provides high availability and scalability for your applications.
@@ -10,9 +10,9 @@ Before you begin, ensure you have:
 - A Linux server with SSH access.
 - `git`, `docker`, and `docker-compose` installed.
 
-## Installation and Launch
+## 📦 Installation and Launch 📦
 
-### Ensure Rust & GO are installed
+### 🤖 Ensure Rust & GO are installed 🤖
 
 ```bash
 rustc --version
@@ -28,7 +28,7 @@ git submodule update --init
 cargo build --release
 ```
 
-### Copy the example config_example.toml & rename to config.toml
+### 📝 Copy the example config_example.toml & rename to config.toml 📝
 
 ```bash
 STORAGE_PORT=$(grep -oP '(?<=rpc_listen_address = "0.0.0.0:)\d+(?=")' $HOME/0g-storage-node/run/config.toml)
