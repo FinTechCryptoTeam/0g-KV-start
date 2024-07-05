@@ -14,14 +14,14 @@ Before you begin, ensure you have:
 
 ### Ensure Rust & GO are installed
 
-```
+```bash
 rustc --version
 go version
 ```
 
 ### Build Storage KV from source code
 
-```
+```bash
 git clone -b v1.1.0-testnet https://github.com/0glabs/0g-storage-kv.git
 cd 0g-storage-kv
 git submodule update --init
@@ -30,7 +30,7 @@ cargo build --release
 
 ### Copy the example config_example.toml & rename to config.toml
 
-```
+```bash
 STORAGE_PORT=$(grep -oP '(?<=rpc_listen_address = "0.0.0.0:)\d+(?=")' $HOME/0g-storage-node/run/config.toml)
 ZGS_LOG_SYNC_BLOCK=$(grep -oP '(?<=log_sync_start_block_number = )\d+' $HOME/0g-storage-node/run/config.toml)
 STORAGE_RPC_ENDPOINT=http://$(wget -qO- eth0.me):$STORAGE_PORT
@@ -43,7 +43,7 @@ JSON_RPC_ENDPOINT=http://$(wget -qO- eth0.me):$JSON_PORT
 echo -e "\nSTORAGE_RPC_ENDPOINT: $STORAGE_RPC_ENDPOINT\nLOG_CONTRACT_ADDRESS: $LOG_CONTRACT_ADDRESS\nMINE_CONTRACT_ADDRESS: $MINE_CONTRACT_ADDRESS\nBLOCKCHAIN_RPC_ENDPOINT: $BLOCKCHAIN_RPC_ENDPOINT\nJSON_RPC_ENDPOINT: $JSON_RPC_ENDPOINT\nZGS_LOG_SYNC_BLOCK: $ZGS_LOG_SYNC_BLOCK\n\nScript by \033[35mNodeCattel\033[0m"
 ```
 
-```
+```bash
 sed -i "s|rpc_listen_address = .*|rpc_listen_address = \"0.0.0.0:6789\"|" $HOME/0g-storage-kv/run/config.toml
 sed -i "s|zgs_node_urls = .*|zgs_node_urls = \"$STORAGE_RPC_ENDPOINT\"|" $HOME/0g-storage-kv/run/config.toml
 sed -i "s|log_config_file = .*|log_config_file = \"$HOME/0g-storage-kv/run/log_config\"|" $HOME/0g-storage-kv/run/config.toml
@@ -54,7 +54,7 @@ sed -i "s|log_sync_start_block_number = .*|log_sync_start_block_number = $ZGS_LO
 
 ### Create zgs-kv service (storage KV)  to run in the background
 
-```
+```bash
 sudo tee /etc/systemd/system/zgs-kv.service > /dev/null <<EOF
 [Unit]
 Description=ZGS-KV Node
@@ -75,7 +75,7 @@ EOF
 
 ### Start Storage KV node
 
-```
+```bash
 sudo systemctl daemon-reload && \
 sudo systemctl enable zgs-kv && \
 sudo systemctl restart zgs-kv
@@ -83,13 +83,13 @@ sudo systemctl restart zgs-kv
 
 ### View Storage KV log
 
-```
+```bash
 sudo journalctl -u zgs-kv.service -f
 ```
 
 ### Stop Storage KV node - (if you wish to stop the service)
 
-```
+```bash
 sudo systemctl stop zgs-kv
 ```
 
